@@ -1,5 +1,5 @@
 ### Wikiparser
-Parses Wikipedia dumps into TeXoo.
+Parses Wikipedia dumps into [TeXoo](https://github.com/sebastianarnold/TeXoo).
 
 #### How to run it
 ```console
