@@ -1,0 +1,4 @@
+wget
+tqdm
+wikiextractor==0.1
+git+https://github.com/DATEXIS/TeXooPy.git

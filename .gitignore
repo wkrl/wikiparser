@@ -1,0 +1,4 @@
+*.xml.*
+/parsed
+/extracted
+*.json
