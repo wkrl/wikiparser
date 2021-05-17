@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wikiparser
+spec:
+  containers:
+  - image: registry.datexis.com/kbrendel/wikiparser:latest
+    name: wikiparser
+  imagePullSecrets:
+  - name: private-registry-auth  
+  restartPolicy: Always
+  volumes:
+    - name: wikiparser-pvc
+  
