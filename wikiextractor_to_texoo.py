@@ -44,7 +44,7 @@ class WikipediaWikiExtractor(AbtractKBConverter):
                 text=a.text,
                 source='GOLD',
                 confidence=1.0,
-                refId=f'https://en.wikipedia.org/wiki/{a["href"]}',
+                refId=f'https://{self.kb.language}.wikipedia.org/wiki/{a["href"]}',
                 candidates=[]
             )
             annotations.append(annotation)
