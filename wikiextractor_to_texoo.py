@@ -7,6 +7,7 @@ import os
 from tqdm import tqdm
 import argparse
 from bs4 import BeautifulSoup
+import urllib
 
 
 class AbtractKBConverter(ABC):
@@ -60,7 +61,7 @@ class WikipediaWikiExtractor(AbtractKBConverter):
 
         annotations = self.extract_annotations(soup) if self.annotate == True else []
         doc = Document(
-            id=wikipedia_page['id'],
+            id=urllib.parse.quote(wikipedia_page['title']),
             title=wikipedia_page['title'],
             text=text,
             length=len(text),
