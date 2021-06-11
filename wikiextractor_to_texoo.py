@@ -7,7 +7,7 @@ import os
 from tqdm import tqdm
 import argparse
 from bs4 import BeautifulSoup
-import urllib
+import urllib.parse
 
 
 class AbtractKBConverter(ABC):
@@ -39,16 +39,17 @@ class WikipediaWikiExtractor(AbtractKBConverter):
         annotations = []
         text = soup.get_text()
         for a in soup.findAll('a'):
-            annotation = NamedEntityAnnotation(
-                begin=text.index(a.text), # assuming that the first occurence of the word is the reference
-                length=len(a.text),
-                text=a.text,
-                source='GOLD',
-                confidence=1.0,
-                refId=f'https://{self.kb.language}.wikipedia.org/wiki/{a["href"]}',
-                candidates=[]
-            )
-            annotations.append(annotation)
+            if a.has_attr('href'):
+                annotation = NamedEntityAnnotation(
+                    begin=text.index(a.text), # assuming that the first occurence of the word is the reference
+                    length=len(a.text),
+                    text=a.text,
+                    source='GOLD',
+                    confidence=1.0,
+                    refId=f'https://{self.kb.language}.wikipedia.org/wiki/{a["href"]}',
+                    candidates=[]
+                )
+                annotations.append(annotation)
         return annotations
 
     def generate_document(self, wikipedia_page):
