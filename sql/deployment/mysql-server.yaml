@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wiki-sql-pvc
+  labels:
+    app: wiki-sql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 300Gi
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  containers:
+  - name: mysql
+    image: registry.datexis.com/kbrendel/mysql-wikiparsing:1.0.1
+    env:
+    resources:
+      requests:
+        memory: "32Gi"
+        cpu: "500m"
+    volumeMounts:
+    - name: wiki-sql-pvc
+      mountPath: /var/lib/mysql
+    ports:
+    - containerPort: 3306
+  volumes:
+  - name: wiki-sql-pvc
+    persistentVolumeClaim:
+      claimName: wiki-sql-pvc
+  imagePullSecrets:
+  - name: private-registry-auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  ports:
+  - port: 3306
+    targetPort: 3306
+    protocol: TCP
+  selector:
+    app: mysql
