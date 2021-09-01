@@ -2,5 +2,11 @@ wget
 tqdm
 lxml
 bs4
+glob2
 wikiextractor==0.1
+dask
+pandas
+pyarrow
+datasets
+mysql-connector-python
 git+https://github.com/DATEXIS/TeXooPy.git
