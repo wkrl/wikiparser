@@ -13,7 +13,7 @@ fetch:
 	python3 download_data.py
 
 extract:
-	python3 -m wikiextractor.WikiExtractor *.xml.* --output ./extracted --links --json --quiet
+	python3 -m wikiextractor.WikiExtractor *.xml.* --output ./extracted --links --json --quiet --filter_disambig_pages
 	
 parse_with_annotations: 
 	mkdir -p parsed
